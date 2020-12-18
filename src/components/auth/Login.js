@@ -3,6 +3,7 @@ import Axios from "axios";
 import UserContext from "../../context/UserContext";
 import { useHistory } from 'react-router-dom';
 import ErrorHighlighter from '../miscellaneous/ErrorHighlighter';
+const SERVER_URL = require('../config/url').SERVER_URL; 
 
 export default function Login() {
     const [email, setEmail] = useState();
@@ -17,7 +18,7 @@ export default function Login() {
        try {
         const loginUser = { email, password };
         const loginRes = await Axios.post(
-         "http://localhost:5000/users/login",
+         SERVER_URL+"/users/login",
           loginUser
         );
          setUserData({
@@ -26,6 +27,7 @@ export default function Login() {
          });
          localStorage.setItem("uauth-token", loginRes.data.token);
          history.push("/");
+         alert("your session will expire in 60 seconds");
       }catch (err) {
         err.response.data.msg && setError(err.response.data.msg);
     }

@@ -6,8 +6,14 @@ import SignUp from './components/auth/SignUp';
 import Header from './components/layout/Header';
 import UserContext from './context/UserContext';
 import Axios from "axios";
-
+import Configure from './components/pages/Configure';
+import Expenses from './components/pages/Expenses';
+import Visuals from './components/pages/Visuals';
+import SuccessConfigure from './components/pages/SuccessConfigure';
+import SuccessExpenses from './components/pages/SuccessExpenses';
+import SpentTable from './components/pages/SpentTable';
 import "./style.css";
+const SERVER_URL = require('./components/config/url').SERVER_URL;
 
 export default function App() {
     const [userData, setUserData] = useState({
@@ -23,12 +29,12 @@ export default function App() {
             token = "";
           }
           const tokenRes = await Axios.post(
-            "http://localhost:5000/users/isTokenValid",
+            SERVER_URL+"/users/isTokenValid",
             null,
             { headers: { "auth-token": token } }
           );
           if (tokenRes.data) {
-            const userRes = await Axios.get("http://localhost:5000/users/", {
+            const userRes = await Axios.get(SERVER_URL+"/users/", {
               headers: { "auth-token": token },
             });
             setUserData({
@@ -51,6 +57,12 @@ export default function App() {
                 <Route exact path="/" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={SignUp} />
+                <Route path="/configure" component={Configure} />
+                <Route path="/expenses" component={Expenses} />
+                <Route path="/visuals" component={Visuals} />
+                <Route path="/successConfigure" component={SuccessConfigure} />
+                <Route path="/successExpenses" component={SuccessExpenses} />
+                <Route path="/spentTable" component={SpentTable} />
              </Switch>
             </div>
            </UserContext.Provider>

@@ -3,6 +3,7 @@ import Axios from "axios";
 import UserContext from "../../context/UserContext";
 import { useHistory } from 'react-router-dom';
 import ErrorHighlighter from '../miscellaneous/ErrorHighlighter';
+const SERVER_URL = require('../config/url').SERVER_URL; 
 
 export default function SignUp() {
    const [email, setEmail] = useState();
@@ -19,11 +20,11 @@ export default function SignUp() {
        try{
        const newUser = { email, password, passwordCheck, displayName };
        await Axios.post(
-           "http://localhost:5000/users/register",
+           SERVER_URL+"/users/register",
            newUser
        );
        const loginRes = await Axios.post(
-        "http://localhost:5000/users/login", {
+        SERVER_URL+"/users/login", {
          email,
          password,
         });

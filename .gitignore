@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+.applitools.config.js
+.env
 
 # testing
 /coverage
